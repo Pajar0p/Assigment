@@ -54,10 +54,14 @@
 
 <slide class="class" id="id" style="background:;">
   <hgroup>
-    <h2>Simple</h2>
+    <h2>Simple &amp; Easy App</h2>
   </hgroup>
   <article data-timings="">
-    <p>Hola2</p>
+    <ul>
+<li><p>Reactive menu which help your to have a clean interface only with the command  applied to the desire Analysis</p></li>
+<li><p>Intereactive analysis where you choose your filter and which kind of analysis you want (Descriptive or Exploratory)</p></li>
+<li><p>App On the go, you can connect whereever you are. Just open this link <a href="https://pajar0p.shinyapps.io/shinyapps/">https://pajar0p.shinyapps.io/shinyapps/</a> in your favorite OS, also complatible will cellphone and Tabs screen.</p></li>
+</ul>
 
   </article>
   <!-- Presenter Notes -->
@@ -65,10 +69,44 @@
 
 <slide class="class" id="id" style="background:;">
   <hgroup>
-    <h2>Interactive</h2>
+    <h2>Dataset Reproducible N1</h2>
   </hgroup>
   <article data-timings="">
-    <p>Hola3</p>
+    <pre><code class="r">DataF &lt;- read.csv(&quot;Energy.csv&quot;, header=FALSE)[,1:2]
+colnames(DataF) &lt;- c(&quot;String_Date&quot;, &quot;Energy_Consumption&quot;)
+Fecha &lt;- format(strptime(as.character(DataF$String_Date),&quot;%m/%d/%Y&quot;), &quot;%d-%b-%Y&quot;)
+DataF &lt;- cbind(DataF,Fecha)
+fxUSD &lt;- read.csv(&quot;fxUSD.csv&quot;, header=TRUE)
+fxCLP &lt;- read.csv(&quot;fxCLP.csv&quot;, header=TRUE)
+Rates &lt;- read.csv(&quot;Rates.csv&quot;, header=TRUE)
+FechaUSD &lt;- format(strptime(as.character(fxUSD$X),&quot;%Y-%m-%d&quot;), &quot;%d-%b-%Y&quot;)
+fxUSD &lt;- cbind(fxUSD, FechaUSD)
+FechaCLP &lt;- format(strptime(as.character(fxCLP$X),&quot;%Y-%m-%d&quot;), &quot;%d-%b-%Y&quot;)
+fxCLP &lt;- cbind(fxCLP, FechaCLP)
+FechaRates &lt;- format(strptime(as.character(Rates$Date),&quot;%Y-%m-%d&quot;), &quot;%d-%b-%Y&quot;)
+Rates &lt;- cbind(Rates, FechaRates)
+DataF &lt;-merge(DataF, fxUSD[,2:3], by.x=&quot;Fecha&quot;, by.y=&quot;FechaUSD&quot;,all.x=TRUE)
+DataF &lt;-merge(DataF, fxCLP[,2:3], by.x=&quot;Fecha&quot;, by.y=&quot;FechaCLP&quot;,all.x=TRUE)
+DataF &lt;-merge(DataF, Rates[,3:4], by.x=&quot;Fecha&quot;, by.y=&quot;FechaRates&quot;,all.x=TRUE)
+DateF &lt;- as.POSIXlt(DataF$String_Date, format=&quot;%m/%d/%Y %H:%M&quot;)
+DataF &lt;- cbind(DataF,DateF)
+DataF &lt;- cbind(DataF, Hour = DateX$hour)
+</code></pre>
+
+<pre><code>## Error in cbind(DataF, Hour = DateX$hour): object &#39;DateX&#39; not found
+</code></pre>
+
+<pre><code class="r">DataF &lt;- cbind(DataF, Day_Num=DateX$mday)
+</code></pre>
+
+<pre><code>## Error in cbind(DataF, Day_Num = DateX$mday): object &#39;DateX&#39; not found
+</code></pre>
+
+<pre><code class="r">DataF &lt;- cbind(DataF, Week = DateX$wday)
+</code></pre>
+
+<pre><code>## Error in cbind(DataF, Week = DateX$wday): object &#39;DateX&#39; not found
+</code></pre>
 
   </article>
   <!-- Presenter Notes -->
@@ -76,10 +114,27 @@
 
 <slide class="" id="slide-4" style="background:;">
   <hgroup>
-    <h2>On the Go</h2>
+    <h2>Dataset Reproducible  N2</h2>
   </hgroup>
   <article data-timings="">
-    <p>Hola4</p>
+    <pre><code class="r">head(DataF)
+</code></pre>
+
+<pre><code>##         Fecha   String_Date Energy_Consumption USD.AUD CLP.AUD      Rate
+## 1 01-Aug-2014 8/1/2014 0:00                123  1.0744  0.0019 0.4806371
+## 2 01-Aug-2014 8/1/2014 0:01                 80  1.0744  0.0019 0.4806371
+## 3 01-Aug-2014 8/1/2014 0:02                155  1.0744  0.0019 0.4806371
+## 4 01-Aug-2014 8/1/2014 0:03                173  1.0744  0.0019 0.4806371
+## 5 01-Aug-2014 8/1/2014 0:04                123  1.0744  0.0019 0.4806371
+## 6 01-Aug-2014 8/1/2014 0:05                160  1.0744  0.0019 0.4806371
+##                 DateF
+## 1 2014-08-01 00:00:00
+## 2 2014-08-01 00:01:00
+## 3 2014-08-01 00:02:00
+## 4 2014-08-01 00:03:00
+## 5 2014-08-01 00:04:00
+## 6 2014-08-01 00:05:00
+</code></pre>
 
   </article>
   <!-- Presenter Notes -->
@@ -97,19 +152,19 @@
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=2 title='Simple'>
+        data-slide=2 title='Simple &amp; Easy App'>
          2
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=3 title='Interactive'>
+        data-slide=3 title='Dataset Reproducible N1'>
          3
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=4 title='On the Go'>
+        data-slide=4 title='Dataset Reproducible  N2'>
          4
       </a>
     </li>
